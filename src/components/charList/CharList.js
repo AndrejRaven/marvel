@@ -3,6 +3,7 @@ import './charList.scss';
 import MarvelService from "../../services/MarvelService";
 import Spinner from '../spinner/Spiner'
 import ErrorMessage from "../errorMessage/ErrorMessage";
+import PropTypes from 'prop-types'
 
 class CharList extends Component {
 	state = {
@@ -43,6 +44,17 @@ class CharList extends Component {
 		}))
 	}
 
+	itemRefs = [];
+
+	setRef = (ref) => {
+		this.itemRefs.push(ref);
+	}
+
+	focusOnItem = (id) => {
+		this.itemRefs.forEach(item => item.classList.remove('char__item_selected'));
+		this.itemRefs[id].classList.add('char__item_selected');
+		this.itemRefs[id].focus();
+	}
 
 	onCharListLoading = () => {
 		this.setState({
@@ -62,9 +74,13 @@ class CharList extends Component {
 		const {charList, loading, error, offset, newItemLoading, charEnded} = this.state;
 		const errorMessage = error ? <ErrorMessage/> : null;
 		const spinner = loading ? <Spinner/> : null;
-		const content = !(loading || error) ? charList.map((char) => {
+		const content = !(loading || error) ? charList.map((char, i) => {
 			return (
-				<li className="char__item" key={char.id} onClick={() => this.props.onCharSelected(char.id)}>
+				<li className="char__item"
+				    key={char.id}
+				    ref={this.setRef}
+				    onClick={() => {this.props.onCharSelected(char.id);
+						               this.focusOnItem(i) }}>
 					{char.thumbnail.includes('image_not_available') ?
 						<img src={char.thumbnail} alt="abyss" style={{objectFit: 'contain'}}/>
 						:
@@ -94,5 +110,8 @@ class CharList extends Component {
 	}
 }
 
+CharList.propTypes = {
+	onCharSelected: PropTypes.func.isRequired
+}
 
 export default CharList;
