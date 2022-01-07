@@ -3,7 +3,7 @@ import {useState, useEffect} from "react";
 import useMarvelService from "../../services/MarvelService";
 import Spinner from '../spinner/Spiner'
 import ErrorMessage from '../errorMessage/ErrorMessage'
-import './singleItemPage.scss';
+import './singleComicPage.scss';
 
 const SingleComicPage = () => {
   const { comicId } = useParams();

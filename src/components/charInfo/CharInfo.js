@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import './charInfo.scss';
 import useMarvelService from "../../services/MarvelService";
 import Spinner from '../spinner/Spiner'
@@ -6,9 +6,9 @@ import ErrorMessage from '../errorMessage/ErrorMessage'
 import Skeleton from '../skeleton/Skeleton'
 import PropTypes from 'prop-types'
 
-const CharInfo = ({charId}) => {
+const CharInfo = ({ charId }) => {
 	const [char, setChar] = useState(null)
-	const {loading, error, getCharacter, clearError} = useMarvelService();
+	const { loading, error, getCharacter, clearError } = useMarvelService();
 
 	useEffect(() => {
 		updateChar()
@@ -19,8 +19,8 @@ const CharInfo = ({charId}) => {
 			return;
 		}
 
-	clearError();
-	getCharacter(charId)
+		clearError();
+		getCharacter(charId)
 			.then(onCharLoaded)
 	}
 
@@ -28,29 +28,31 @@ const CharInfo = ({charId}) => {
 		setChar(char)
 	}
 
-	const skeleton = char || loading || error ? null : <Skeleton/>
-	const errorMessage = error ? <ErrorMessage/> : null;
-	const spinner = loading ? <Spinner/> : null;
-	const content = !(loading || error || !char) ? <View char={char}/> : null;
+	const skeleton = char || loading || error ? null : <Skeleton />
+	const errorMessage = error ? <ErrorMessage /> : null;
+	const spinner = loading ? <Spinner /> : null;
+	const content = !(loading || error || !char) ? <View char={char} /> : null;
 
 	return (
-		<div className="char__info">
-			{skeleton}
-			{errorMessage}
-			{spinner}
-			{content}
-		</div>
+		<>
+			<div className="char__info">
+				{skeleton}
+				{errorMessage}
+				{spinner}
+				{content}
+			</div>
+		</>
 	)
 }
 
-const View = ({char}) => {
-	const {name, description, thumbnail, homepage, wiki, comics} = char;
+const View = ({ char }) => {
+	const { name, description, thumbnail, homepage, wiki, comics } = char;
 	return (
 		<>
 			<div className="char__basics">
 				{thumbnail.includes('image_not_available') ?
-					<img src={thumbnail} alt={name} style={{objectFit: 'contain'}}/> :
-					<img src={thumbnail} alt={name}/>
+					<img src={thumbnail} alt={name} style={{ objectFit: 'contain' }} /> :
+					<img src={thumbnail} alt={name} />
 				}
 				<div>
 					<div className="char__info-name">{name}</div>

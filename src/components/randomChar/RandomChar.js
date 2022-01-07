@@ -58,7 +58,7 @@ const RandomChar = () => {
 			</div>
 		</div>
 	)
-}
+}		
 
 const View = ({char}) => {
 	const {name, description, thumbnail, homepage, wiki} = char;
@@ -71,7 +71,7 @@ const View = ({char}) => {
 			<div className="randomchar__info">
 				<p className="randomchar__name">{name}</p>
 				<p className="randomchar__descr">
-					{description ? description : `No description found about ${name} `}
+					{description.length > 200 ? `${description.slice(0, 200)} ...` : description}
 				</p>
 				<div className="randomchar__btns">
 					<a href={homepage} className="button button__main">
