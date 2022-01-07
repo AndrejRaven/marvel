@@ -1,5 +1,5 @@
 import RandomChar from "../randomChar/RandomChar";
-import
+import { useState } from "react";
 import CharList from "../charList/CharList";
 import CharInfo from "../charInfo/CharInfo";
 import ErrorBoundary from "../errorBoundary/ErrorBoundary";
@@ -29,3 +29,5 @@ const MainPage = () => {
 		</>
 	)
 }
+
+export default MainPage;
