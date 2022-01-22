@@ -3,30 +3,31 @@ import {useState, useEffect} from "react";
 import useMarvelService from "../../services/MarvelService";
 import Spinner from '../spinner/Spiner'
 import ErrorMessage from '../errorMessage/ErrorMessage'
-import './singleComicPage.scss';
+import './singleItemPage.scss';
 
-const SingleComicPage = () => {
-  const { comicId } = useParams();
-  const [ comic, setComic ] = useState(null);
-  const { loading, error, getComic, clearError } = useMarvelService();
+const SingleItemPage = ({ getItem, linkToMain }) => {
+  const { id } =  useParams();
+  const [ item, setItem ] = useState(null);
+  const { loading, error, clearError } = useMarvelService();
+
 
   useEffect(() => {
-    updateComic()
-  }, [comicId]);
+    updateItem()
+  }, [id]);
 
-  const updateComic = () => {
+  const updateItem = () => {
     clearError();
-    getComic(comicId)
-    .then(onComicLoaded)
+    getItem(id)
+    .then(onItemLoaded)
   }
 
-  const onComicLoaded = (comic) => {
-    setComic(comic)
+  const onItemLoaded = (item) => {
+    setItem(item)
   }
 
   const errorMessage = error ? <ErrorMessage /> : null;
   const spinner = loading ? <Spinner /> : null;
-  const content = !(loading || error || !comic) ? <View comic={comic} /> : null;
+  const content = !(loading || error || !item) ? <View item={item} linkToMain={linkToMain} /> : null;
 
   return (
     <>
@@ -37,21 +38,21 @@ const SingleComicPage = () => {
   )
 }
 
-const View = ({ comic }) => {
-  const { title, description, pageCount, thumbnail, language, price } = comic;
+const View = ({ item, linkToMain }) => {
+  const { title, description, pageCount, thumbnail, language, price } = item;
   return (
     <div className="single-item">
       <img src={thumbnail} alt={title} className="single-item__img" />
       <div className="single-item__info">
         <h2 className="single-item__name">{title}</h2>
         <p className="single-item__descr">{description}</p>
-        <p className="single-item__descr">{pageCount}</p>
-        <p className="single-item__descr">Language: {language}</p>
-        <div className="single-item__price">{price}</div>
+        {item.pageCount ? <p className="single-item__descr">{pageCount}</p> : null}
+        {item.language ? <p className="single-item__descr">Language: {language}</p> : null}
+        {item.price ? <div className="single-item__price">{price}</div> : null} 
       </div>
-      <Link to="/comics" className="single-item__back">Back to all</Link>
+      <Link to={linkToMain} className="single-item__back">Back to all</Link>
     </div>
   )
 }
 
-export default SingleComicPage;
+export default SingleItemPage;

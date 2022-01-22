@@ -38,7 +38,6 @@ const SingleCharPage = () => {
 }
 
 const View = ({ char }) => {
-  console.log(char);
   const { id, description, name, thumbnail } = char;
   return (
     <div className="single-item">
