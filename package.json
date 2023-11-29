@@ -1,6 +1,5 @@
 {
   "name": "marvel",
-  "homepage": "https://andrejraven.github.io/marvel/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -8,6 +7,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "formik": "^2.2.9",
+    "gh-pages": "^6.1.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -18,11 +18,14 @@
     "web-vitals": "^1.0.1",
     "yup": "^0.32.11"
   },
+  "homepage": "https://andrejraven.github.io/marvel/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
