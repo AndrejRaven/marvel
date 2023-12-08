@@ -1,6 +1,6 @@
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { Link } from 'react-router-dom';
-import { useState } from 'react/cjs/react.development';
+import { useState } from 'react';
 import * as Yup from 'yup';
 import useMarvelService from "../../services/MarvelService";
 import "./SearchForm.scss"
@@ -11,12 +11,8 @@ const SearchForm = () => {
 
 
   const onRequest = name => {
-    getCharacterByName(name).then(response => {
-      console.log(response);
-      onCharLoaded(response);
-    });
+    getCharacterByName(name).then(onCharLoaded)
   }
-
 
   const onCharLoaded = (char) => {
     if (char !== 0) {
