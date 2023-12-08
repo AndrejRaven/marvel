@@ -15,13 +15,13 @@ const App = () => {
   const { getComic, getCharacter } = useMarvelService();
 
 	return (
-		<Router>
+		<Router basename='marvel'>
 			<div className="app">
 				<AppHeader />
 				<main>
 					<Suspense fallback={<Spinner />}>
 						<Routes>
-							<Route path="/" element={<MainPage />} />
+							<Route path="/home" element={<MainPage />} />
 							<Route path="/comics" element={<ComicsPage />} />
 							<Route path="/comics/:id" element={<SingleItemPage linkToMain="/comics" getItem={getComic} />} />
 							<Route path="/characters/:id" element={<SingleItemPage linkToMain="/" getItem={getCharacter} />} />
