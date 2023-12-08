@@ -7,7 +7,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    overflow: hidden;
 }
 
 ul,
@@ -55,7 +54,7 @@ input::-webkit-inner-spin-button {
     position: relative;
     .bg-decoration {
         position: absolute;
-        right: -174px;
+        right: 0;
         bottom: -70px;
         z-index: -1;
     }
