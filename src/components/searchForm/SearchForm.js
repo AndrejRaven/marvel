@@ -6,13 +6,17 @@ import useMarvelService from "../../services/MarvelService";
 import "./SearchForm.scss"
 
 const SearchForm = () => {
-  const [char, setChar] = useState(null);
+  const [char, setChar] = useState('');
   const { getCharacterByName } = useMarvelService();
 
 
   const onRequest = name => {
-    getCharacterByName(name).then(onCharLoaded)
+    getCharacterByName(name).then(response => {
+      console.log(response);
+      onCharLoaded(response);
+    });
   }
+
 
   const onCharLoaded = (char) => {
     if (char !== 0) {
@@ -40,7 +44,7 @@ const SearchForm = () => {
         <div className="search-form-name">Or find a character by name:</div>
         <Form className="form">
           <div className="search-form-input">
-            <Field id="text" name="text" type="text" onFocus={() => setChar(null)} />
+            <Field id="text" name="text" type="text" onFocus={() => setChar('')} />
             <ErrorMessage className='search-form-message' name="text" component="div" />
             {char ?
               <div className='search-form-message green'>There is! Visit {char.name} page?</div> : null}
